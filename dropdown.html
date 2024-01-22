@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv=" "X-UA-Compatible" content="ie=edge">
+    <title>Responsive Navbar and Filterable Table</title>
+    <style>
+        .navbar{
+            display: flex;
+            justify-content: space-between;
+            background-color: black;
+            align-items: center;
+            border-radius: 25px;
+        }
+        .brand-title img{
+            border-radius: 25px;
+            padding-left: 5px;
+        }
+        .navbar li{
+            float: left;
+            list-style:none;
+            margin: 13px 20px;
+        }
+        .navbar ul{
+            overflow: auto;
+        }
+        .navbar li a{
+            padding: 3px 3px;
+            text-decoration: none;
+            color: white;
+        }
+        .navbar li a:hover{
+            background-color: grey;
+            border-radius: 20px;
+        }
+        .search{
+            float:right;
+            color:white;
+            padding: 12px 75px;
+        }
+        .navbar input{
+            border: 1px solid black;
+            border-radius: 20px;
+            padding: 3px 3px;
+        }
+        .navbar img{
+            padding-top: 10px ;
+            float: left;
+        }
+        table{
+            margin-top: 10px;
+            padding-top: 10px;
+            border-collapse: collapse;
+            text-align: center;
+            width: 100%;
+        }
+        th,td{
+            padding: 8px;
+            border:1px solid black;
+        }
+        .mob-nav{
+            display: none;
+        }
+       .filters{
+        display: flex;
+        width:100%
+       }
+       .buttonparent{
+        display: flex;
+        justify-content: center;
+        color: white;
+        border-radius: 20px;
+        text-decoration-color: white;
+        height: 40px;
+        width: 100%;
+        
+        
+       }
+       .filters{
+        display: flex;
+        justify-content: center;
+        gap: 35px;
+       }
+       .button{
+        color: white;
+        background-color: black;
+        border: black;
+        border-radius: 20px;
+        max-width: 30%;
+       }
+
+        @media only screen and (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .navbar ul {
+                margin-top: 10px;
+                padding: 4px;
+            }
+            .navbar li {
+                margin: 5px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="mob-nav">
+                <img src="menu.png">
+            </div>
+            <div class="brand-title">
+                <img src="bharat.png">
+            </div>
+            <ul class="navlinks">
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">ABOUT</a></li>
+                <li><a href="#">SERVICES</a></li>
+                <li><a href="#">CONTACT US</a></li>
+            </ul>
+        </nav>
+        
+    </header>
+    <br>
+
+    <!-- Filterable Table -->
+    <!-- Filters -->
+    <div class="filters">
+        <div class="f1">
+    <label for="monthFilter" >Month:</label>
+    <select id="monthFilter">
+        <option value="All">All</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+    </select>
+</div>
+
+    <div class="f2">
+    <label for="shiftFilter">Shift:</label>
+    <select id="shiftFilter">
+        <option value="All">All</option>
+        <option value="1">Shift 1</option>
+        <option value="2">Shift 2</option>
+    </select>
+</div>
+<div class="f3">
+    <label for="priorityFilter">Priority:</label>
+    <select id="priorityFilter">
+        <option value="All">All</option>
+        <option value="Urgent">Urgent</option>
+        <option value="Not Urgent">Not Urgent</option>
+    </select>
+    </div>
+
+</div>
+<br>
+<div class="buttonparent">
+    <button onclick="filterTable()" class="button" >Apply Filters</button>
+</div>
+    <!-- Table -->
+    <table id="data-table" style="display: none;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Month</th>
+                <th>Shift</th>
+                <th>Priority</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Sample Data will be added dynamically -->
+        </tbody>
+    </table>
+
+    <script>
+        function filterTable() {
+            var month = document.getElementById("monthFilter").value;
+            var shift = document.getElementById("shiftFilter").value;
+            var priority = document.getElementById("priorityFilter").value;
+
+            var table = document.getElementById("data-table");
+            var tbody = table.getElementsByTagName("tbody")[0];
+            tbody.innerHTML = ''; // Clear existing rows
+
+            // Sample Data
+            var sampleData = [
+                { name: "John Doe", age: 25, month: "January", shift: 1, priority: "Urgent" },
+                { name: "Jane Smith", age: 30, month: "February", shift: 2, priority: "Not Urgent" },
+                { name: "Bob Johnson", age: 35, month: "March", shift: 1, priority: "Urgent" },
+                { name: "Alice Brown", age: 28, month: "April", shift: 2, priority: "Not Urgent" },
+                { name: "Charlie Wilson", age: 40, month: "May", shift: 1, priority: "Urgent" },
+                { name: "Emma Davis", age: 32, month: "June", shift: 2, priority: "Not Urgent" },
+                { name: "Frank Miller", age: 45, month: "July", shift: 1, priority: "Urgent" },
+                { name: "Grace Taylor", age: 27, month: "August", shift: 2, priority: "Not Urgent" },
+                { name: "Henry Clark", age: 38, month: "September", shift: 1, priority: "Urgent" },
+                { name: "Ivy Adams", age: 31, month: "October", shift: 2, priority: "Not Urgent" },
+                { name: "Jack Wilson", age: 29, month: "November", shift: 1, priority: "Urgent" },
+                { name: "Kelly Johnson", age: 33, month: "December", shift: 2, priority: "Not Urgent" },
+                // Add more sample data as needed
+            ];
+
+            // Filter and display data
+            sampleData.forEach(function (data) {
+                if (
+                    (month === 'All' || data.month === month) &&
+                    (shift === 'All' || data.shift.toString() === shift) &&
+                    (priority === 'All' || data.priority === priority)
+                ) {
+                    var row = tbody.insertRow();
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    var cell4 = row.insertCell(3);
+                    var cell5 = row.insertCell(4);
+
+                    cell1.innerText = data.name;
+                    cell2.innerText = data.age;
+                    cell3.innerText = data.month;
+                    cell4.innerText = data.shift;
+                    cell5.innerText = data.priority;
+                }
+            });
+
+            table.style.display = "table"; // Show the table
+        }
+    </script>
+
+</body>
+</html>
+ 
